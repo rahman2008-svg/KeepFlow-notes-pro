@@ -1,14 +1,13 @@
 workflows:
   keepflow-notes-pro:
-    name: KeepFlow Notes Pro Build
+    name: KeepFlow Notes Pro
     max_build_duration: 60
-    instance_type: linux_x2
+
+    instance_type: linux_x2   # Free plan compatible
 
     environment:
       java: 17
-
-      vars:
-        GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+      android_signing: []     # IMPORTANT: no list error fix
 
     cache:
       cache_paths:
@@ -16,8 +15,14 @@ workflows:
         - ~/.gradle/wrapper
 
     scripts:
-      - name: Grant permission
+      - name: Checkout
+        script: echo "Starting build..."
+
+      - name: Grant permissions
         script: chmod +x gradlew
+
+      - name: Create local.properties
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Clean project
         script: ./gradlew clean
