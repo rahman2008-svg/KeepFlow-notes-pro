@@ -13,60 +13,45 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "planner_settings")
+// Safe singleton DataStore instance
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "planner_settings"
+)
 
 class PreferenceManager(private val context: Context) {
 
     companion object {
-        val KEY_DARK_MODE = stringPreferencesKey("dark_mode_preference") // "system", "light", "dark"
+        val KEY_DARK_MODE = stringPreferencesKey("dark_mode_preference")
         val KEY_NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
         val KEY_DAILY_REMINDER_ENABLED = booleanPreferencesKey("daily_reminder_enabled")
         val KEY_DAILY_REMINDER_TIME = stringPreferencesKey("daily_reminder_time")
     }
 
-    val darkModeFlow: Flow<String> = context.dataStore.data
-        .catch { exception ->
+    private fun data(): Flow<Preferences> {
+        return context.dataStore.data.catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
             }
-        }.map { preferences ->
-            preferences[KEY_DARK_MODE] ?: "system"
         }
+    }
 
-    val notificationsEnabledFlow: Flow<Boolean> = context.dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }.map { preferences ->
-            preferences[KEY_NOTIFICATIONS_ENABLED] ?: true
-        }
+    val darkModeFlow: Flow<String> = data().map { preferences ->
+        preferences[KEY_DARK_MODE] ?: "system"
+    }
 
-    val dailyReminderEnabledFlow: Flow<Boolean> = context.dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }.map { preferences ->
-            preferences[KEY_DAILY_REMINDER_ENABLED] ?: true
-        }
+    val notificationsEnabledFlow: Flow<Boolean> = data().map { preferences ->
+        preferences[KEY_NOTIFICATIONS_ENABLED] ?: true
+    }
 
-    val dailyReminderTimeFlow: Flow<String> = context.dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }.map { preferences ->
-            preferences[KEY_DAILY_REMINDER_TIME] ?: "08:00"
-        }
+    val dailyReminderEnabledFlow: Flow<Boolean> = data().map { preferences ->
+        preferences[KEY_DAILY_REMINDER_ENABLED] ?: true
+    }
+
+    val dailyReminderTimeFlow: Flow<String> = data().map { preferences ->
+        preferences[KEY_DAILY_REMINDER_TIME] ?: "08:00"
+    }
 
     suspend fun setDarkMode(mode: String) {
         context.dataStore.edit { preferences ->
