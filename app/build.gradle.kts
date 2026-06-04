@@ -59,10 +59,6 @@ android {
     targetCompatibility = JavaVersion.VERSION_17
   }
 
-  kotlinOptions {
-    jvmTarget = "17"
-  }
-
   buildFeatures {
     compose = true
     buildConfig = true
@@ -75,6 +71,13 @@ android {
   }
 }
 
+/**
+ * FIX: modern Kotlin toolchain (REPLACES kotlinOptions block)
+ */
+kotlin {
+  jvmToolchain(17)
+}
+
 secrets {
   propertiesFileName = ".env"
   defaultPropertiesFileName = ".env.example"
@@ -83,7 +86,7 @@ secrets {
 dependencies {
   implementation(platform(libs.androidx.compose.bom))
 
-  // Firebase BOM (safe keep, but not required in offline app)
+  // Firebase BOM (kept but optional)
   implementation(platform(libs.firebase.bom))
 
   implementation(libs.androidx.activity.compose)
@@ -105,7 +108,7 @@ dependencies {
 
   implementation(libs.androidx.work.runtime.ktx)
 
-  // IMPORTANT: required for your PreferenceManager (DataStore fix)
+  // DataStore (required fix for PreferenceManager)
   implementation("androidx.datastore:datastore-preferences:1.1.1")
 
   implementation(libs.kotlinx.coroutines.android)
