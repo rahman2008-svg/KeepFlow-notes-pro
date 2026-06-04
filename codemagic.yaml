@@ -1,6 +1,6 @@
 workflows:
   keepflow-notes-pro:
-    name: KeepFlow Notes Pro
+    name: KeepFlow Notes Pro Build
     max_build_duration: 60
 
     environment:
@@ -15,11 +15,16 @@ workflows:
       - name: Grant permission
         script: chmod +x gradlew
 
-      - name: Clean
+      - name: Clean project
         script: ./gradlew clean
 
-      - name: Build APK
+      - name: Build Debug APK
         script: ./gradlew assembleDebug
 
     artifacts:
       - app/build/outputs/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - prince.ar.abdur.rahman2008@gmail.com
