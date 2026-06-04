@@ -1,10 +1,10 @@
 workflows:
   keepflow_notes_pro:
-    name: KeepFlow Notes Pro Android Build
+    name: KeepFlow Notes Pro
 
     max_build_duration: 60
 
-    instance_type: linux   # ✅ FIXED
+    instance_type: linux   # ONLY FREE PLAN SAFE
 
     environment:
       java: 17
@@ -15,8 +15,8 @@ workflows:
         - ~/.gradle/wrapper
 
     scripts:
-      - name: Checkout
-        script: echo "Starting build..."
+      - name: Start
+        script: echo "Build starting..."
 
       - name: Grant permission
         script: chmod +x gradlew
@@ -27,13 +27,8 @@ workflows:
       - name: Clean
         script: ./gradlew clean
 
-      - name: Build APK
+      - name: Build Debug APK
         script: ./gradlew assembleDebug
 
     artifacts:
       - app/build/outputs/**/*.apk
-
-    publishing:
-      email:
-        recipients:
-          - prince.ar.abdur.rahman2008@gmail.com
