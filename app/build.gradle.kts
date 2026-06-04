@@ -23,18 +23,13 @@ android {
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
+      val keystorePath = System.getenv("KEYSTORE_PATH")
+        ?: "${rootDir}/my-upload-key.jks"
+
       storeFile = file(keystorePath)
       storePassword = System.getenv("STORE_PASSWORD")
       keyAlias = "upload"
       keyPassword = System.getenv("KEY_PASSWORD")
-    }
-
-    create("debugConfig") {
-      storeFile = file("${rootDir}/debug.keystore")
-      storePassword = "android"
-      keyAlias = "androiddebugkey"
-      keyPassword = "android"
     }
   }
 
@@ -42,15 +37,20 @@ android {
     release {
       isCrunchPngs = false
       isMinifyEnabled = false
+
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
       )
+
       signingConfig = signingConfigs.getByName("release")
     }
 
     debug {
-      signingConfig = signingConfigs.getByName("debugConfig")
+      // IMPORTANT:
+      // Do NOT set signingConfig here.
+      // Android + Codemagic auto uses debug keystore.
+      isMinifyEnabled = false
     }
   }
 
@@ -72,7 +72,7 @@ android {
 }
 
 /**
- * FIX: modern Kotlin toolchain (REPLACES kotlinOptions block)
+ * JVM TOOLCHAIN (safe modern replacement)
  */
 kotlin {
   jvmToolchain(17)
@@ -85,11 +85,10 @@ secrets {
 
 dependencies {
   implementation(platform(libs.androidx.compose.bom))
-
-  // Firebase BOM (kept but optional)
   implementation(platform(libs.firebase.bom))
 
   implementation(libs.androidx.activity.compose)
+
   implementation(libs.androidx.compose.material.icons.core)
   implementation(libs.androidx.compose.material.icons.extended)
   implementation(libs.androidx.compose.material3)
@@ -98,6 +97,7 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling.preview)
 
   implementation(libs.androidx.core.ktx)
+
   implementation(libs.androidx.lifecycle.runtime.compose)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -108,7 +108,7 @@ dependencies {
 
   implementation(libs.androidx.work.runtime.ktx)
 
-  // DataStore (required fix for PreferenceManager)
+  // REQUIRED for PreferenceManager
   implementation("androidx.datastore:datastore-preferences:1.1.1")
 
   implementation(libs.kotlinx.coroutines.android)
