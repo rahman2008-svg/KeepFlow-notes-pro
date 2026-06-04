@@ -17,15 +17,12 @@ android {
     targetSdk = 36
     versionCode = 1
     versionName = "1.0"
-
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH")
-        ?: "${rootDir}/my-upload-key.jks"
-
+      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
       storeFile = file(keystorePath)
       storePassword = System.getenv("STORE_PASSWORD")
       keyAlias = "upload"
@@ -35,22 +32,18 @@ android {
 
   buildTypes {
     release {
-      isCrunchPngs = false
       isMinifyEnabled = false
-
+      isCrunchPngs = false
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
       )
-
       signingConfig = signingConfigs.getByName("release")
     }
 
     debug {
-      // IMPORTANT:
-      // Do NOT set signingConfig here.
-      // Android + Codemagic auto uses debug keystore.
-      isMinifyEnabled = false
+      // IMPORTANT: remove custom debug keystore dependency
+      signingConfig = signingConfigs.getByName("release")
     }
   }
 
@@ -71,9 +64,6 @@ android {
   }
 }
 
-/**
- * JVM TOOLCHAIN (safe modern replacement)
- */
 kotlin {
   jvmToolchain(17)
 }
@@ -88,7 +78,6 @@ dependencies {
   implementation(platform(libs.firebase.bom))
 
   implementation(libs.androidx.activity.compose)
-
   implementation(libs.androidx.compose.material.icons.core)
   implementation(libs.androidx.compose.material.icons.extended)
   implementation(libs.androidx.compose.material3)
@@ -97,7 +86,6 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling.preview)
 
   implementation(libs.androidx.core.ktx)
-
   implementation(libs.androidx.lifecycle.runtime.compose)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -108,7 +96,6 @@ dependencies {
 
   implementation(libs.androidx.work.runtime.ktx)
 
-  // REQUIRED for PreferenceManager
   implementation("androidx.datastore:datastore-preferences:1.1.1")
 
   implementation(libs.kotlinx.coroutines.android)
