@@ -14,19 +14,19 @@ workflows:
         - ~/.gradle/wrapper
 
     scripts:
-      - name: Checkout
+      - name: Build Start
         script: echo "Starting build..."
 
       - name: Grant permission
         script: chmod +x gradlew
 
-      - name: Create local.properties
+      - name: Setup SDK
         script: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
-      - name: Clean project
+      - name: Clean
         script: ./gradlew clean
 
-      - name: Build Debug APK
+      - name: Build APK
         script: ./gradlew assembleDebug
 
     artifacts:
