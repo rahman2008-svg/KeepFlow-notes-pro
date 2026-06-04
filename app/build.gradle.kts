@@ -47,9 +47,8 @@ android {
     }
 
     debug {
-      // FIX: use default debug signing (NO release keystore)
+      // ✅ FIX: use default debug signing (NO custom config)
       isMinifyEnabled = false
-      signingConfig = null
     }
   }
 
@@ -70,9 +69,6 @@ android {
   }
 }
 
-/**
- * FIX: Kotlin toolchain (Gradle 9+ compatible)
- */
 kotlin {
   jvmToolchain(17)
 }
