@@ -6,7 +6,6 @@ workflows:
 
     environment:
       java: 17
-      android_signing: false
 
     cache:
       cache_paths:
