@@ -1,0 +1,74 @@
+{
+  "entities": {
+    "Institution": {
+      "title": "Institution",
+      "description": "Educational institution profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "eiin": { "type": "string" },
+        "district": { "type": "string" },
+        "address": { "type": "string" },
+        "contact": { "type": "string" },
+        "email": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "coverUrl": { "type": "string" },
+        "about": { "type": "string" },
+        "principalMessage": { "type": "string" },
+        "themeColor": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "adminUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "eiin", "adminUid"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Student record in an institution",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "institutionId": { "type": "string" },
+        "name": { "type": "string" },
+        "roll": { "type": "string" },
+        "class": { "type": "string" },
+        "section": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "attendanceRate": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "inactive"] }
+      },
+      "required": ["institutionId", "name", "roll", "class"]
+    },
+    "Notice": {
+      "title": "Notice",
+      "description": "Official communication from the institution",
+      "type": "object",
+      "properties": {
+        "institutionId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string", "enum": ["exam", "holiday", "admission", "event", "emergency"] },
+        "pinned": { "type": "boolean" },
+        "attachmentUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["institutionId", "title", "category"]
+    }
+  },
+  "firestore": {
+    "/institutions/{institutionId}": {
+      "schema": "Institution",
+      "description": "Institution profiles"
+    },
+    "/institutions/{institutionId}/students/{studentId}": {
+      "schema": "Student",
+      "description": "Students of a specific institution"
+    },
+    "/institutions/{institutionId}/notices/{noticeId}": {
+      "schema": "Notice",
+      "description": "Notices for a specific institution"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "KeepFlow Notes Pro",
+  "description": "A clean, production-ready, offline-first Google Keep Notes clone with Jetpack Compose (Material 3), Room, WorkManager, and rich local reminder notifications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

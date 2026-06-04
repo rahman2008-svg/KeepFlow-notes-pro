@@ -1,0 +1,149 @@
+{
+  "id": "user-temp",
+  "name": "Abdur Rahman ",
+  "email": "hello@domain.com",
+  "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+  "phone": "+880 1700-000000",
+  "location": "Dhaka, Bangladesh",
+  "views": 0,
+  "likes": 0,
+  "lastUpdated": "Just now",
+  "isCustomized": true,
+  "role": "developer",
+  "tagline": "Full Stack Developer craftinâ smart software solutions",
+  "bio": "I turn complex problems into crisp, high-performance web applications using robust tools and clean layout blocks.",
+  "stylePreset": "minimal",
+  "layout": "grid",
+  "themePalette": {
+    "name": "Minimal Clean",
+    "primary": "#18181b",
+    "secondary": "#71717a",
+    "background": "bg-zinc-50 text-zinc-900",
+    "text": "text-zinc-900",
+    "cardBg": "bg-white border border-zinc-200/80 shadow-xs",
+    "borderClass": "border-zinc-200"
+  },
+  "fontPairing": {
+    "name": "Futuristic Grid",
+    "heading": "font-mono tracking-wider uppercase",
+    "body": "font-mono text-sm"
+  },
+  "socialLinks": [
+    {
+      "id": "1",
+      "platform": "GitHub",
+      "url": "https://github.com"
+    },
+    {
+      "id": "2",
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "title": "MAKING SYSTEMS ALIVE",
+      "enabled": true,
+      "content": {
+        "subtitle": "Helping fast-growing projects build scalable engines, API routes, and high-fidelity frontends.",
+        "ctaText": "Browse Project Index",
+        "showBadge": true,
+        "badgeText": "⚡ WORK MODE ACTIVE"
+      }
+    },
+    {
+      "id": "skills",
+      "type": "skills",
+      "title": "CORE ENGINE BLOCKS",
+      "enabled": true,
+      "content": {
+        "categories": [
+          {
+            "name": "Backend & Cloud",
+            "list": [
+              "Node.js",
+              "PostgreSQL",
+              "Docker",
+              "AWS",
+              "GraphQL"
+            ]
+          },
+          {
+            "name": "Frontend Tech",
+            "list": [
+              "TypeScript",
+              "React.js",
+              "TailwindCSS",
+              "Vite",
+              "Redux"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "projects",
+      "type": "projects",
+      "title": "RECENT COMMITS",
+      "enabled": true,
+      "content": {
+        "items": [
+          {
+            "name": "OmniSync Middleware",
+            "desc": "Secure asynchronous state pipeline synchronization engine.",
+            "tags": [
+              "Go",
+              "gRPC",
+              "Kafka"
+            ],
+            "link": "#"
+          },
+          {
+            "name": "Velo UI Toolkit",
+            "desc": "Grounded themeable layout widgets focusing on ultra-high FPS animation.",
+            "tags": [
+              "React",
+              "CSS",
+              "Canvas"
+            ],
+            "link": "#"
+          }
+        ]
+      }
+    },
+    {
+      "id": "experience",
+      "type": "experience",
+      "title": "WORK CHRONOLOGY",
+      "enabled": true,
+      "content": {
+        "jobs": [
+          {
+            "role": "Lead Frontend Architect",
+            "company": "DevTech Ltd",
+            "duration": "2024 - Present",
+            "desc": "Spearheaded conversion of legacy web frameworks into performance-tuned React."
+          },
+          {
+            "role": "Software Engineer",
+            "company": "LogicCloud Labs",
+            "duration": "2022 - 2024",
+            "desc": "Designed high-concurrency microservices and database query schemas."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contact",
+      "type": "contact",
+      "title": "PING ME",
+      "enabled": true,
+      "content": {
+        "messagePlaceholder": "Drop a line or schedule a technical chat...",
+        "submitText": "Send Signal"
+      }
+    }
+  ]
+}
