@@ -24,8 +24,3 @@ workflows:
 
     artifacts:
       - app/build/outputs/**/*.apk
-
-    publishing:
-      email:
-        recipients:
-          - prince.ar.abdur.rahman2008@gmail.com
