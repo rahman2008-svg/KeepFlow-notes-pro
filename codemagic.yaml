@@ -1,6 +1,7 @@
 workflows:
   keepflow-notes-pro:
-    name: KeepFlow Notes Pro
+    name: KeepFlow Notes Pro Android Build
+
     max_build_duration: 60
 
     instance_type: linux
@@ -15,12 +16,12 @@ workflows:
 
     scripts:
       - name: Checkout
-        script: echo "Build started"
+        script: echo "Cloning repository..."
 
-      - name: Grant permission
+      - name: Grant permissions
         script: chmod +x gradlew
 
-      - name: Setup SDK
+      - name: Setup Android SDK
         script: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Clean project
@@ -31,3 +32,8 @@ workflows:
 
     artifacts:
       - app/build/outputs/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - prince.ar.abdur.rahman2008@gmail.com
