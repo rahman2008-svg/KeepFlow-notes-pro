@@ -1,5 +1,5 @@
 workflows:
-  keepflow-notes-pro:
+  android-build:
     name: KeepFlow Notes Pro
 
     max_build_duration: 60
@@ -7,16 +7,18 @@ workflows:
     environment:
       java: 17
 
-    cache:
-      cache_paths:
-        - ~/.gradle/caches
-        - ~/.gradle/wrapper
-
     scripts:
-      - chmod +x gradlew
-      - echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - ./gradlew clean
-      - ./gradlew assembleDebug
+      - name: Setup SDK
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
+      - name: Grant permission
+        script: chmod +x gradlew
+
+      - name: Clean
+        script: ./gradlew clean
+
+      - name: Build APK
+        script: ./gradlew assembleDebug
 
     artifacts:
       - app/build/outputs/**/*.apk
